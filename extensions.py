@@ -9,7 +9,7 @@ class APIException(Exception):
 
 class CurrencyConverter:
     @staticmethod
-    def get_price(quote: str, base: str, amount: str):
+    def get_price(quote: str, base: str, amount: str):  # обработка и выполнение запроса конвертера
         if quote == base:
             raise APIException(f'Одинаковые валюты "{quote}"')
 

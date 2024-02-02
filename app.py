@@ -2,11 +2,10 @@ import telebot
 from bot_config import TOKEN, values
 from extensions import APIException, CurrencyConverter
 
-
 bot = telebot.TeleBot(TOKEN)
 
 
-@bot.message_handler(commands=['start', 'help'])
+@bot.message_handler(commands=['start', 'help'])  # команды старт и помощь
 def get_help(message: telebot.types.Message):
     text_help = ("Чтобы начать работу отправьте сообщение боту в следующем формате: \n <имя валюты, цену которой "
                  "хотите узнать> \n<имя валюты, в которой надо узнать цену первой валюты> \n<количество первой валюты>"
@@ -15,7 +14,7 @@ def get_help(message: telebot.types.Message):
     bot.reply_to(message, text_help)
 
 
-@bot.message_handler(commands=['values'])
+@bot.message_handler(commands=['values'])  # команда отображения доступных валют
 def get_values(message: telebot.types.Message):
     text = "Доступные для перевода валюты:"
     for cur in values.keys():
@@ -23,7 +22,7 @@ def get_values(message: telebot.types.Message):
     bot.reply_to(message, text)
 
 
-@bot.message_handler(content_types=['text', ])
+@bot.message_handler(content_types=['text', ])  # обработка запросов пользователя
 def convert(message: telebot.types.Message):
     try:
         mes_text = message.text.lower()
@@ -40,7 +39,6 @@ def convert(message: telebot.types.Message):
         bot.reply_to(message, f"Не удалось обработать команду \n{e}")
     else:
         bot.send_message(message.chat.id, text)
-
 
 
 bot.polling()
